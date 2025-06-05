@@ -4,6 +4,13 @@ import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 from CoolProp.CoolProp import PropsSI
+### standin for refprop use commented out code###
+# from ctREFPROP.ctREFPROP import REFPROPFunctionLibrary
+# RP = REFPROPFunctionLibrary('C:\\Program Files (x86)\\REFPROP')  # Update path as needed
+###+initialization:
+# from ctREFPROP.ctREFPROP import REFPROPFunctionLibrary
+# RP = REFPROPFunctionLibrary('C:\\Program Files (x86)\\REFPROP')
+
 
 ### Setup Constants *** English units ***###
 fluid = 'Water'
@@ -69,6 +76,9 @@ def permeability_calculation (row):
     P_Pa = row['PT2_Pa']
     Q= venturi_calculation(row)
     mu = PropsSI('V', 'T', T_K, 'P', P_Pa, fluid)
+    # result = RP.REFPROPdll(fluid, "TP", "ETA", RP.MOLAR_BASE_SI, 0, 0, T_K, P_Pa / 1000, [1.0])
+    # mu = result.Output[0]  # units: Pa·s
+
     L = inch_to_meter(sample_depth)
     A = np.pi/4*(inch_to_meter(porous_diameter))**2
     del_P = row['PT2_Pa']-row['PT3_Pa']
